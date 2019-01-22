@@ -53,6 +53,45 @@ async function load(){
     document.getElementById("lyrics").style.display='block';
 }
 
-function reload(){
-    load()
+function displayNotification(mhead,mbody) {
+    if (Notification.permission == 'granted') {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        var options = {
+          body: mbody,
+          icon: './images/icons/icon-96x96.png',
+          vibrate: [100, 50, 100],
+          data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+          },
+          actions: [
+            {action: 'explore', title: 'retry'},
+            {action: 'close', title: 'close'}
+          ]
+        };
+        reg.showNotification(mhead, options);
+      });
+    }
 }
+
+window.addEventListener('load', async e => {
+    if ('serviceWorker' in navigator) {
+        try {
+            navigator.serviceWorker.register('serviceWorker.js');
+            console.log('SW registered');
+
+        } catch (error) {
+            console.log('SW failed');
+
+        }
+    }
+    if(navigator.onLine){
+        navigator.serviceWorker.controller.postMessage("online");
+    }
+    else
+    {
+        displayNotification('no internet','please connent to a network');
+        navigator.serviceWorker.controller.postMessage("offline");
+    }
+    await load();
+});
