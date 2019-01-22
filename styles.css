@@ -1,0 +1,86 @@
+html{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    transition: background-color 1s ease-out;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color:white;
+    position: relative;
+}
+
+#content{
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    height: 30%;
+    width: 70%;
+    margin: -15% 0 0 -25%;
+    font-size: 150%;
+    text-align: center;
+}
+
+#lyrics{
+    font-family: 'Bungee Inline', cursive;
+    display: none;
+}
+
+#artist{
+    font-family: 'Bungee Inline';
+    text-transform: uppercase;
+    display: none;
+}
+
+#album{
+    font-family: 'Bungee Inline';
+    text-transform: uppercase;
+    display: none;
+}
+
+#song{
+    font-family: 'Bungee Inline';
+    text-transform: uppercase;
+    display: none;
+}
+
+#title{
+    width: 100%;
+    background-color: rgb(256,256,256);
+    text-align: center;
+    font-size: 150%;
+    font-family: 'Bungee Inline', cursive;
+}
+
+.btn{
+    width: 20%;
+    border-width: 3px;
+    border-color: white;
+    color: white;
+    box-shadow: 4px 5px #000000;
+}
+
+img {
+    max-width: 90%;
+    min-height: 40vh;
+}
+
+@media only screen and (max-width: 520px) {
+#content{
+        position: absolute;
+        top: 15%;
+        left: 25%;
+        height: 30%;
+        width: 100%;
+        margin: -15% 0 0 -25%;
+        font-size: 150%;
+        text-align: center;
+}
+.btn{
+    width: 30%;
+}
+}
