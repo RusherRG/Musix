@@ -10,7 +10,8 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    color:white;
+    background-color: #000000;
+    color: white;
     position: relative;
 }
 
@@ -27,25 +28,25 @@ body{
 
 #lyrics{
     font-family: 'Bungee Inline', cursive;
-    display: none;
+    display: block;
 }
 
 #artist{
     font-family: 'Bungee Inline';
     text-transform: uppercase;
-    display: none;
+    display: block;
 }
 
 #album{
     font-family: 'Bungee Inline';
     text-transform: uppercase;
-    display: none;
+    display: block;
 }
 
 #song{
     font-family: 'Bungee Inline';
     text-transform: uppercase;
-    display: none;
+    display: block;
 }
 
 #title{

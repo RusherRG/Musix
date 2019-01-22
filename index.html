@@ -4,24 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
     <title>MusixLyrics</title>
-    <script src="./app.js"></script> 
     <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js"></script> 
 </head>
 <body>
-    <div id="title">
-        XKCD.random()
-    </div>
     <div class="container" id="content">
         <br>
-        <div id="artist"></div>
+        <div id="artist">Ed Sheeran</div>
         <br>
-        <div id="album"></div>
+        <div id="song">Perfect</div>
         <br>
-        <div id="song"></div>
+        <div id="lyrics">I found a love for me
+                Darling just dive right in
+                And follow my lead
+                Well I found a girl beautiful and sweet 
+                I never knew you were the someone waiting for me
+                'Cause we were just kids when we fell in love
+                Not knowing what it was
+                I will not give you up this time
+                But darling, just kiss me slow, your heart is all I own
+                And in your eyes you're holding mine
+                Baby, I'm dancing in the dark with you between my arms
+                Barefoot on the grass, listening to our favorite song
+                When you said you looked a mess, I whispered underneath my breath
+                But you heard it, darling, you look perfect tonight</div>
         <br>
-        <div id="lyrics"></div>
-        <br>
+        <div id="loader" style="display: none">
+                <img src="./index.svg">
+        </div>
+        
         <button type="button" class="btn btn-default" onclick="reload()"><b>NEXT</b></button>
     </div>
 </body>

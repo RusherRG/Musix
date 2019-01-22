@@ -1,10 +1,10 @@
 var key = '6a8743dc32ccdac1b4e9c5b162e5f0cc'
-
 async function fetch_tracks(artist) {
     console.log("Getting Tracks")
-    const request_url = `https://api.musixmatch.com/ws/1.1/track.search?format=json&q_artist=${artist}&s_track_rating=desc&page_size=100&apikey=${key}`
-    const response = await fetch(request_url, { method: 'GET'})
-        .then(res => res.json())
+    const request_url = `https://api.musixmatch.com/ws/1.1/track.search?format=jsonp&callback=callback&q_artist=${artist}&s_track_rating=desc&page_size=100&apikey=${key}`
+    const response = await fetch(request_url, { method : 'GET'})
+        .then(res => res.text()) 
+        .then(json => JSON.parse(json.slice(9,-2)))
     const track_list = response['message']['body']['track_list']
     //console.log(track_list)
     var tracks = await get_tracks(track_list)
@@ -26,19 +26,33 @@ function get_tracks(track_list){
 
 async function get_lyrics(track_id) {
     console.log("Getting Lyrics")
-    const request_url = `https://api.musixmatch.com/ws/1.1/track.lyrics.get?format=json&track_id=${track_id}&apikey=${key}`
+    const request_url = `https://api.musixmatch.com/ws/1.1/track.lyrics.get?format=jsonp&callback=callback&track_id=${track_id}&apikey=${key}`
     const response = await fetch(request_url, { method: 'GET'})
-        .then(res => res.json())
+        .then(res => res.text())
+        .then(json => JSON.parse(json.slice(9,-2)))
     const lyrics = response['message']['body']['lyrics']['lyrics_body']
-    return lyrics
+    return lyrics.slice(0,-59)
 }
 
-async function reload(){
+async function load(){
+    document.getElementById("artist").style.display='none';
+    document.getElementById("song").style.display='none';
+    document.getElementById("lyrics").style.display='none';
+    document.getElementById("loader").style.display='block';
     const tracks = await fetch_tracks("Ed Sheeran")
-    //console.log(tracks)
     var x = Math.floor(Math.random() * 100)
     if(x==100){x=Math.floor(Math.random() * 100)}
     const track_id = tracks[x]['track_id']
     const lyrics = await get_lyrics(track_id)
     console.log(`Artist : Ed Sheeran\nAlbum Name : ${tracks[x]['album_name']}\nSong : ${tracks[x]['track_name']}\nLyrics : ${lyrics}`)
+    document.getElementById("song").innerHTML = tracks[x]['track_name'];
+    document.getElementById("lyrics").innerHTML = lyrics;
+    document.getElementById("loader").style.display='none';
+    document.getElementById("artist").style.display='block';
+    document.getElementById("song").style.display='block';
+    document.getElementById("lyrics").style.display='block';
+}
+
+function reload(){
+    load()
 }
