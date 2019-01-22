@@ -53,7 +53,7 @@ async function load(){
     document.getElementById("lyrics").style.display='block';
 }
 
-function displayNotification(mhead,mbody) {
+/*function displayNotification(mhead,mbody) {
     if (Notification.permission == 'granted') {
       navigator.serviceWorker.getRegistration().then(function(reg) {
         var options = {
@@ -73,7 +73,7 @@ function displayNotification(mhead,mbody) {
       });
     }
 }
-
+*/
 window.addEventListener('load', async e => {
     if ('serviceWorker' in navigator) {
         try {
@@ -85,6 +85,7 @@ window.addEventListener('load', async e => {
 
         }
     }
+    /*
     if(navigator.onLine){
         navigator.serviceWorker.controller.postMessage("online");
     }
@@ -92,6 +93,6 @@ window.addEventListener('load', async e => {
     {
         displayNotification('no internet','please connent to a network');
         navigator.serviceWorker.controller.postMessage("offline");
-    }
+    }*/
     await load();
 });
