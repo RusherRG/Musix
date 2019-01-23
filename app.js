@@ -17,7 +17,8 @@ function get_tracks(track_list){
         let track_info = {}
         labels = ['album_name','album_id','track_name','track_id']
         for(i in labels){
-            track_info[labels[i]] = track_list[track]['track'][labels[i]]
+            if(track_list[track]['track']['has_lyrics']!=0)
+                track_info[labels[i]] = track_list[track]['track'][labels[i]]
         }
         tracks.push(track_info)
     }
@@ -34,46 +35,29 @@ async function get_lyrics(track_id) {
     return lyrics.slice(0,-59)
 }
 
-async function load(){
-    document.getElementById("artist").style.display='none';
-    document.getElementById("song").style.display='none';
-    document.getElementById("lyrics").style.display='none';
+async function teddy(){
+    document.getElementById("card").style.display='none';
     document.getElementById("loader").style.display='block';
     const tracks = await fetch_tracks("Ed Sheeran")
-    var x = Math.floor(Math.random() * 100)
-    if(x==100){x=Math.floor(Math.random() * 100)}
+    var x = Math.floor(Math.random() * (tracks.length + 1))
+    if(x==tracks.length + 1){x=Math.floor(Math.random() * (tracks.length + 1))}
     const track_id = tracks[x]['track_id']
     const lyrics = await get_lyrics(track_id)
-    console.log(`Artist : Ed Sheeran\nAlbum Name : ${tracks[x]['album_name']}\nSong : ${tracks[x]['track_name']}\nLyrics : ${lyrics}`)
+    console.log(`Artist : Ed Sheeran\nAlbum Name : ${tracks[x]['album_name']}\nSong : ${tracks[x]['track_name']}\nLyrics : ${lyrics.slice(0,600)}`)
     document.getElementById("song").innerHTML = tracks[x]['track_name'];
     document.getElementById("lyrics").innerHTML = lyrics;
+    if(tracks[x]['album_name'].includes('÷'))
+        document.getElementById("album_art").src="./images/album_art/÷.png";
+    else if(tracks[x]['album_name'].includes('+'))
+        document.getElementById("album_art").src = "./images/album_art/+.png";
+    else if(tracks[x]['album_name'].includes('x') || tracks[x]['album_name'].includes('X'))
+        document.getElementById("album_art").src="./images/album_art/x.png";
+    else
+        document.getElementById("album_art").src="./images/album_art/ed.png";
     document.getElementById("loader").style.display='none';
-    document.getElementById("artist").style.display='block';
-    document.getElementById("song").style.display='block';
-    document.getElementById("lyrics").style.display='block';
+    document.getElementById("card").style.display='flex';
 }
 
-/*function displayNotification(mhead,mbody) {
-    if (Notification.permission == 'granted') {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        var options = {
-          body: mbody,
-          icon: './images/icons/icon-96x96.png',
-          vibrate: [100, 50, 100],
-          data: {
-            dateOfArrival: Date.now(),
-            primaryKey: 1
-          },
-          actions: [
-            {action: 'explore', title: 'retry'},
-            {action: 'close', title: 'close'}
-          ]
-        };
-        reg.showNotification(mhead, options);
-      });
-    }
-}
-*/
 window.addEventListener('load', async e => {
     if ('serviceWorker' in navigator) {
         try {
@@ -85,14 +69,5 @@ window.addEventListener('load', async e => {
 
         }
     }
-    /*
-    if(navigator.onLine){
-        navigator.serviceWorker.controller.postMessage("online");
-    }
-    else
-    {
-        displayNotification('no internet','please connent to a network');
-        navigator.serviceWorker.controller.postMessage("offline");
-    }*/
-    await load();
+    await teddy();
 });
