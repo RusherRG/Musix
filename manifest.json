@@ -3,10 +3,10 @@
   "short_name": "Musix",
   "theme_color": "#07497e",
   "background_color": "#07497e",
-  "display": "browser",
+  "display": "standalone",
   "orientation": "portrait",
   "Scope": "/",
-  "start_url": "/",
+  "start_url": "/Musix/",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
